@@ -8,7 +8,7 @@
 * 3 Creational Patterns
 ** [[file:Creational Patterns ^.org][Creational Patterns ^]] 
 ** [[file:Abstract Factory.org][Abstract Factory]]
-** Builder
+** [[file:Builder.org][Builder]]
 ** Factory Method
 ** Prototype
 ** Singleton

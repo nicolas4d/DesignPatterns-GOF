@@ -1,0 +1,85 @@
+* Intent
+  Separate the construction of a complex object from its representation so that
+  the same construction process can create different representations.
+* Motivation
+  [[file:img/Builder%20Motivation.png][Builder Motivation]]
+
+  Each converter class is called a *builder* in the pattern, and the reader is
+  called the *director*.
+* Applicability
+  Use the Builder pattern when :
+  - the algorithm for creating a complex object should be independent of the
+    parts that make up the object and how they're assembled.
+  - the construction process must allow different representations for the object
+    that's constructed.
+* Structure
+  [[file:img/Builder%20Structure.png][Builder Structure]]
+* Participants
+  - Builder (TextConverter)
+    - specifies an abstract interface for creating parts of a Product object.
+  - ConcreteBuilder (ASCIIConverter, TeXConverter, TextWidgetConverter)
+    - constructs and assembles parts of the product by implementing the Builder
+      interface.
+    - defines and keeps track of the representation it creates.
+    - provides an interface for retrieving the product (e.g., GetASCIIText,
+      GetTextWidget).
+  - Director (RTFReader)
+    - constructs an object using the Builder interface.
+  - Product (ASCIIText, TeXText, TextWidget)
+    - represents the complex object under construction. ConcreteBuilder builds
+      the product's internal representation and defines the process by which
+      it's assembled.
+    - includes classes that define the constituent parts, including interfaces
+      for assembling the parts into the final result.
+* Collaborations
+  - The client creates the Director object and configures it with the desired
+    Builder object.
+  - Director notifies the builder whenever a part of the product should be
+    built.
+  - Builder handles requests from the director and adds parts to the product.
+  - The client retrieves the product from the builder.
+    
+
+  [[file:img/Builder%20Collaborations.png][Builder Collaborations]]
+* Consequences 
+  1. It lets you vary a product's internal representation.
+  2. It isolates code for construction and representation.
+  3. It gives you finer control over the construction process.
+* Implementation
+  1. Assembly and construction interface. Builders construct their products in
+     step-by-step fashion. Therefore the Builder class interface must be general
+     enough to allow the construction of products for all kinds of concrete
+     builders.
+  2. Why no abstract class for products? In the common case, the products
+     produced by the concrete builders differ so greatly in their representation
+     that there is little to gain from giving different products a common parent
+     class.
+  3. Empty methods as default in Builder. In C++, the build methods are
+     intentionally not declared pure virtual member functions. They're defined
+     as empty methods instead, letting clients override only the operations
+     they're interested in.
+* Sample Code
+  [[file:example/builder.cpp]]
+* Known Uses
+  - The RTF converter application
+  - The Parser class in the compiler subsystem is a Director that takes a
+    ProgramNodeBuilder object as an argument. A Parser object notifies its
+    ProgramNodeBuilder object each time it recognizes a syntactic construct.
+    When the parser is done, it asks the builder for the parse tree it built and
+    returns it to the client.
+  - ClassBuilder is a builder that Classes use to create subclasses for
+    themselves. In this case a Class is both the Director and the Product.
+  - ByteCodeStream is a builder that creates a compiled method as a byte array.
+    ByteCodeStream is a nonstandard use of the Builder pattern, because the
+    complex object it builds is encoded as a byte array, not as a normal
+    Smalltalk object. But the interface to ByteCodeStream is typical of a
+    builder, and it would be easy to replace ByteCodeStream with a different
+    class that represented programs as a composite object.
+* Related Patterns
+  Abstract Factory is similar to Builder in that it too may construct complex
+  objects. The primary difference is that the Builder pattern focuses on
+  constructing a complex object step by step. Abstract Factory's emphasis is on
+  families of product objects (either simple or complex). Builder returns the
+  product as a final step, but as far as the Abstract Factory pattern is
+  concerned, the product gets returned immediately. A Composite is what the
+  builder often builds.
