@@ -1,0 +1,55 @@
+#+TITLE: Design Patterns : Elements of Reusable Object-Oriented Software
+* Preface to CD
+* Preface to Book
+* Foreword
+* [[file:Guide to Readers.org][Guide to Readers]]
+* [[file:1 Introduction.org][1 Introduction]]
+* [[file:2 A Case Study: Designing a Document Editor.org][2 A Case Study: Designing a Document Editor]]
+* 3 Creational Patterns
+** [[file:Creational Patterns ^.org][Creational Patterns ^]] 
+** [[file:Abstract Factory.org][Abstract Factory]]
+** Builder
+** Factory Method
+** Prototype
+** Singleton
+** Discussion of Creational Patterns
+* 4 Structural Patterns
+** Adapter
+** Bridge
+** Composite
+** Decorator
+** Façade
+** Flyweight
+** Proxy
+** Discussion of Structural Patterns
+* 5 Behavioral Patterns
+** Chain of Responsibility
+** Command
+** Interpreter
+** Iterator
+** Mediator
+** Memento
+** Observer
+** State
+** Strategy
+** Template Method
+** Visitor
+** Discussion of Behavioral Patterns
+* 6 Conclusion
+** 6.1 What to Expect from Design Patterns
+** 6.2 A Brief History
+** 6.3 The Pattern Community
+** 6.4 An Invitation
+** 6.5 A Parting Thought
+* A Glossary
+* B Guide to Notation
+** B.1 Class Diagram
+** B.2 Object Diagram
+** B.3 Interaction Diagram
+* C Foundation Classes
+** C.1 List
+** C.2 Iterator
+** C.3 ListIterator
+** C.4 Point
+** C.5 Rect
+* Bibliography

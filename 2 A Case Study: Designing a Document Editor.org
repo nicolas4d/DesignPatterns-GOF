@@ -1,0 +1,15 @@
+* ^
+  This chapter presents a case study in the design of a
+  "What-You-See-Is-What-You-Get" (or "WYSIWYG") document editor called Lexi.
+
+  [[file:img/Figure%202.1:%20Lexi's%20user%20interface.png][Lexi's user interface]]
+* 2.1 Design Problems
+* 2.2 Document Structure
+  
+* 2.3 Formatting
+* 2.4 Embellishing the User Interface
+* 2.5 Supporting Multiple Look-and-Feel Standards
+* 2.6 Supporting Multiple Window Systems
+* 2.7 User Operations
+* 2.8 Spelling Checking and Hyphenation
+* 2.9 Summary

@@ -1,0 +1,16 @@
+* Guide to Readers
+The first part (Chapters 1 and 2)describes what design patterns are and how they
+help you design object-oriented software. It includes a design case study that
+demonstrates how design patterns apply in practice. The second part of the book
+(Chapters 3, 4, and 5) is a catalog of the actual designpatterns.
+
+If you aren't an experienced object-oriented designer, then start withthe simplest
+and most common patterns:
+• Abstract Factory (page 99)
+• Adapter (157)
+• Composite (183)
+• Decorator (196)
+• Factory Method (121)
+• Observer (326)
+• Strategy (349)
+• Template Method (360)

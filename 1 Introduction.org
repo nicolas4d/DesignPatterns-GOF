@@ -1,0 +1,302 @@
+* ^
+  experienced object-oriented designers do make good designs.
+  - One thing expert designers know not to do is solve every problem from first
+    principles. Rather, they reuse solutions that have worked for them in the
+    past.
+* 1.1 What Is a Design Pattern
+  Each pattern describes a problem which occurs over and over again in our
+  environment, and then describes the core of the solution to that problem, in
+  such a way that you can use this solution a million times over, without ever
+  doing it the same way twice
+
+  In general, a pattern has four essential elements:
+  1. The *pattern name* is a handle we can use to describe a design problem,
+     its solutions, and consequences in a word or two.
+  2. The *problem* describes when to apply the pattern.
+  3. The *solution* describes the elements that make up the design, their
+     relationships, responsibilities, and collaborations.
+  4. The *consequences* are the results and trade-offs of applying the pattern.
+
+
+  The design patterns in this book are descriptions of communicating objects
+  and classes that are customized to solve a general design problem in a
+  particular context.
+* 1.2 Design Patterns in Smalltalk MVC
+  MVC consists of three kinds of objects. The Model is the application object,
+  the View is its screen presentation, and the Controller defines the way the
+  user interface reacts to user input. Before MVC, user interface designs
+  tended to lump these objects together. MVC decouples them to increase
+  flexibility and reuse.
+
+  MVC decouples views and models by establishing a subscribe/notify protocol
+  between them.
+
+  [[file:img/Smalltalk%20MVC.png][Smalltalk MVC]]
+
+  Another feature of MVC is that views can be nested.
+
+  MVC also lets you change the way a view responds to user input without
+  changing its visual presentation.
+* 1.3 Describing Design Patterns
+  - Pattern Name and Classification :: The pattern's name conveys the essence
+       of the pattern succinctly. A good name is vital, because it will become
+       part of your design vocabulary. The pattern's classification reflects
+       the scheme.
+  - Intent :: A short statement that answers the following questions: What does
+              the design pattern do? What is its rationale and intent? What
+              particular design issue or problem does it address?
+  - Also Known As :: Other well-known names for the pattern, if any.
+  - Motivation :: A scenario that illustrates a design problem and how the
+                  class and object structures in the pattern solve the problem.
+                  The scenario will help you understand the more abstract
+                  description of the pattern that follows.
+  - Applicability :: What are the situations in which the design pattern can be
+                     applied? What are examples of poor designs that the
+                     pattern can address? How can you recognize these
+                     situations?
+  - Structure :: A graphical representation of the classes in the pattern using
+                 a notation based on the Object Modeling Technique (OMT)
+                 [RBP+91]. We also use interaction diagrams [JCJO92, Boo94] to
+                 illustrate sequences of requests and collaborations between
+                 objects.
+  - Participants :: The classes and/or objects participating in the design
+                    pattern and their responsibilities.
+  - Collaborations :: How the participants collaborate to carry out their
+                      responsibilities.
+  - Consequences :: How does the pattern support its objectives? What are the
+                    trade-offs and results of using the pattern? What aspect of
+                    system structure does it let you vary independently?
+  - Implementation :: What pitfalls, hints, or techniques should you be aware
+                      of when implementing the pattern? Are there
+                      language-specific issues?
+  - Sample Code :: Code fragments that illustrate how you might implement the
+                   pattern in C++ or Smalltalk.
+  - Known Uses :: Examples of the pattern found in real systems. We include at
+                  least two examples from different domains.
+  - Related Patterns :: What design patterns are closely related to this one?
+       What are the important differences? With which other patterns should
+       this one be used?
+* 1.4 The Catalog of Design Patterns
+* 1.5 Organizing the Catalog
+  We classify design patterns by two criteria. 
+  1. *purpose*, reflects what a pattern does. 
+     - Creational patterns concern the process of object creation.
+     - Structural patterns deal with the composition of classes or objects.
+     - Behavioral patterns characterize the ways in which classes or objects
+       interact and distribute responsibility.
+  2. *scope*, specifies whether the pattern applies primarily to classes or to
+     objects. 
+     - Class patterns deal with relationships between classes and their
+       subclasses. These relationships are established through inheritance, so
+       they are static—fixed at compile-time.
+     - Object patterns deal with object relationships, which can be changed at
+       run-time and are more dynamic.
+
+     [[file:table/Table%201.1:%20Design%20pattern%20space%201.png][Design pattern space 1]]
+     [[file:table/Table%201.1:Design%20pattern%20space%202.png][Design pattern space 2]]
+* 1.6 How Design Patterns Solve Design Problems
+** Finding Appropriate Objects
+   The hard part about object-oriented design is decomposing a system into
+   objects.
+
+   The abstractions that emerge during design are key to making a design
+   flexible.
+
+   Design patterns help you identify less-obvious abstractions and the objects
+   that can capture them.
+
+** Determining Object Granularity
+** Specifying Object Interfaces
+   The set of all signatures defined by an object's operations is called the
+   interface to the object.
+
+   A type is a name used to denote a particular interface. We speak of an object
+   as having the type "Window" if it accepts all requests for the operations
+   defined in the interface named "Window."
+
+   Interfaces can contain other interfaces as subsets. We say that a type is a
+   subtype of another if its interface contains the interface of its supertype.
+
+   Interfaces are fundamental in object-oriented systems. Objects are known only
+   through their interfaces.
+
+   Dynamic binding means that issuing a request doesn't commit you to a
+   particular implementation until run-time.
+
+   dynamic binding lets you substitute objects that have identical interfaces
+   for each other at run-time. This substitutability is known as polymorphism,
+   and it's a key concept in object-oriented systems.Polymorphism simplifies the
+   definitions of clients, decouples objects from each other, and lets them vary
+   their relationships to each other at run-time.
+
+   Design patterns help you define interfaces by identifying their key elements
+   and the kinds of data that get sent across an interface.
+
+   Design patterns also specify relationships between interfaces.
+
+** Specifying Object Implementations
+*** ^
+    An object's implementation is defined by its class. The class specifies the
+    object's internal data and representation and defines the operations the
+    object can perform.
+
+    [[file:img/OMT-based%20notation.png][OMT-based notation]]
+
+    [[file:img/instantiate.png][instantiate]]
+
+    An abstract class is one whose main purpose is to define a common interface
+    for its subclasses. Classes that aren't abstract are called concrete classes.
+
+    A mixin class is a class that's intended to provide an optional interface or
+    functionality to other classes. It's similar to an abstract class in that
+    it's not intended to be instantiated. Mixin classes require multiple
+    inheritance:
+
+    [[file:img/mixin.png][mixin]]
+
+*** Class versus Interface Inheritance
+    An *object's class* defines how the object is implemented. The class defines
+    the object's internal state and the implementation of its operations. an
+    *object's type* only refers to its interface — the set of requests to which
+    it can respond. An object can have many types, and objects of different
+    classes can have the same type.
+
+    a class defines the operations an object can perform, it also defines the
+    object's type. When we say that an object is an instance of a class, we
+    imply that the object supports the interface defined by the class.
+
+    Class inheritance defines an object's implementation in terms of another
+    object's implementation. In short, it's a mechanism for code and
+    representation sharing. In contrast, interface inheritance (or subtyping)
+    describes when an object can be used in place of another.
+*** Programming to an Interface, not an Implementation
+    Class inheritance is basically just a mechanism for extending an
+    application's functionality by reusing functionality in parent classes. It
+    lets you define a new kind of object rapidly in terms of an old one. It lets
+    you get new implementations almost for free, inheriting most of what you
+    need from existing classes.
+
+    However, implementation reuse is only half the story. Inheritance's ability
+    to define families of objects with identical interfaces (usually by
+    inheriting from an abstract class) is also important. Why? Because
+    polymorphism depends on it.
+
+    There are two benefits to manipulating objects solely in terms of the interface
+    defined by abstract classes:
+    1. Clients remain unaware of the specific types of objects they use, as long
+       as the objects adhere to the interface that clients expect.
+    2. Clients remain unaware of the classes that implement these objects.
+       Clients only know about the abstract class(es) defining the interface.
+
+       
+    Don't declare variables to be instances of particular concrete classes.
+    Instead, commit only to an interface defined by an abstract class.
+*** Putting Reuse Mechanisms to Work
+    Most people can understand concepts like objects, interfaces, classes, and
+    inheritance. The challenge lies in applying them to build flexible, reusable
+    software, and design patterns can show you how.
+*** Inheritance versus Composition
+    The two most common techniques for reusing functionality in object-oriented
+    systems are class inheritance and object composition. As we've explained,
+    class inheritance lets you define the implementation of one class in terms
+    of another's. Reuse by subclassing is often referred to as white-box reuse.
+    The term "white-box" refers to visibility: With inheritance, the internals
+    of parent classes are often visible to subclasses.
+
+    Object composition is an alternative to class inheritance. Here, new
+    functionality is obtained by assembling or composing objects to get more
+    complex functionality. Object composition requires that the objects being
+    composed have well-defined interfaces. This style of reuse is called
+    black-box reuse, because no internal details of objects are visible. Objects
+    appear only as "black boxes."
+
+    Favor object composition over class inheritance.
+*** Delegation
+    In delegation, two objects are involved in handling a request: a receiving
+    object delegates operations to its *delegate*.
+
+    the receiver passes itself to the delegate to let the delegated operation
+    refer to the receiver.
+
+    [[file:img/window%20class%20delegating.png][window class delegating]]
+
+    Delegation has a disadvantage it shares with other techniques that make
+    software more flexible through object composition: Dynamic, highly
+    parameterized software is harder to understand than more static software.
+*** Inheritance versus Parameterized Types
+    Another (not strictly object-oriented) technique for reusing functionality
+    is through *parameterized types*, also known as *generics* (Ada, Eiffel) and
+    *templates* (C++).
+*** Relating Run-Time and Compile-Time Structures
+    
+    [[file:img/aggregate%20instance.png][aggregate instance]]
+** Designing for Change
+   The key to maximizing reuse lies in anticipating new requirements and changes
+   to existing requirements, and in designing your systems so that they can
+   evolve accordingly.
+
+   Here are some common causes of redesign along with the design pattern(s) that
+   address them:
+   1. Creating an object by specifying a class explicitly.
+   2. Dependence on specific operations.
+   3. Dependence on hardware and software platform.
+   4. Dependence on object representations or implementations.
+   5. Algorithmic dependencies.
+   6. Tight coupling.
+   7. Extending functionality by subclassing.
+   8. Inability to alter classes conveniently.
+
+
+   look at the role design patterns play in the development of three broad
+   classes of software: 
+   - application programs
+   - toolkits
+   - frameworks
+
+
+   patterns and frameworks have some similarities. They are different in three
+   major ways:
+   1. Design patterns are more abstract than frameworks.
+   2. Design patterns are smaller architectural elements than frameworks. A typical
+      framework contains several design patterns, but the reverse is never true.
+   3. Design patterns are less specialized than frameworks.
+* 1.7 How to Select a Design Pattern
+  1. Consider how design patterns solve design problems.
+  2. Scan Intent sections.
+  3. Study how patterns interrelate.
+  4. Study patterns of like purpose.
+  5. Examine a cause of redesign.
+  6. Consider what should be variable in your design.
+
+  [[file:table/Table%201.2:%20Design%20aspects%20that%20design%20patterns%20let%20you%20vary.png][Design aspects that design patterns let you vary 1]]
+  [[file:table/Table%201.2:%20Design%20aspects%20that%20design%20patterns%20let%20you%20vary%202.png][Design aspects that design patterns let you vary 2]]
+* 1.8 How to Use a Design Pattern
+  1. Read the pattern once through for an overview. Pay particular attention to
+     the Applicability and Consequences sections to ensure the pattern is right
+     for your problem.
+  2. Go back and study the Structure, Participants, and Collaborations sections.
+     Make sure you understand the classes and objects in the pattern and how
+     they relate to one another.
+  3. Look at the Sample Code section to see a concrete example of the pattern in
+     code. Studying the code helps you learn how to implement the pattern.
+  4. Choose names for pattern participants that are meaningful in the
+     application context. The names for participants in design patterns are
+     usually too abstract to appear directly in an application. Nevertheless,
+     it's useful to incorporate the participant name into the name that appears
+     in the application. That helps make the pattern more explicit in the
+     implementation. For example, if you use the Strategy pattern for a text
+     compositing algorithm, then you might have classes SimpleLayoutStrategy or
+     TeXLayoutStrategy.
+  5. Define the classes. Declare their interfaces, establish their inheritance
+     relationships, and define the instance variables that represent data and
+     object references. Identify existing classes in your application that the
+     pattern will affect, and modify them accordingly.
+  6. Define application-specific names for operations in the pattern. Here
+     again, the names generally depend on the application. Use the
+     responsibilities and collaborations associated with each operation as a
+     guide. Also, be consistent in your naming conventions. For example, you
+     might use the "Create-" prefix consistently to denote a factory method.
+  7. Implement the operations to carry out the responsibilities and
+     collaborations in the pattern. The Implementation section offers hints to
+     guide you in the implementation. The examples in the Sample Code section
+     can help as well.
