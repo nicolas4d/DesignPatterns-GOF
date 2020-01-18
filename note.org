@@ -10,7 +10,7 @@
 ** [[file:Abstract Factory.org][Abstract Factory]]
 ** [[file:Builder.org][Builder]]
 ** [[file:Factory Method.org][Factory Method]]
-** Prototype
+** [[file:Prototype.org][Prototype]]
 ** Singleton
 ** Discussion of Creational Patterns
 * 4 Structural Patterns

@@ -1,0 +1,58 @@
+* Intent
+  Specify the kinds of objects to create using a prototypical instance, and
+  create new objects by copying this prototype.
+* Motivation
+  [[file:img/Prototype%20motivation.png][prototype motivation]]
+* Applicability
+  Use the Prototype pattern when a system should be independent of how its products
+  are created, composed, and represented; and
+  - when the classes to instantiate are specified at run-time, for example, by
+    dynamic loading; or
+  - to avoid building a class hierarchy of factories that parallels the class
+    hierarchy of products; or
+  - when instances of a class can have one of only a few different combinations
+    of state. It may be more convenient to install a corresponding number of
+    prototypes and clone them rather than instantiating the class manually, each
+    time with the appropriate state.
+* Structure 
+  [[file:img/prototype%20Structure.png][prototype Structure]]
+* Participants
+  - Prototype (Graphic)
+    - declares an interface for cloning itself.
+  - ConcretePrototype (Staff, WholeNote, HalfNote)
+    - implements an operation for cloning itself.
+  - Client (GraphicTool)
+    - creates a new object by asking a prototype to clone itself.
+* Collaborations
+  A client asks a prototype to clone itself.
+* Consequences
+  It hides the concrete product classes from the client, thereby reducing the
+  number of names clients know about. Moreover, these patterns let a client work
+  with application-specific classes without modification.
+
+  1. Adding and removing products at run-time.
+  2. Specifying new objects by varying values.
+  3. Specifying new objects by varying structure.
+  4. Reduced subclassing.
+  5. Configuring an application with classes dynamically.
+* Implementation
+  Consider the following issues when implementing prototypes:
+  1. Using a prototype manager.
+  2. Implementing the Clone operation.
+  3. Initializing clones.
+* Sample Code
+  define a MazePrototypeFactory subclass of the MazeFactory class.
+  MazePrototypeFactory will be initialized with prototypes of the objects it
+  will create so that we don't have to subclass it just to change the classes of
+  walls or rooms it creates.
+  
+  [[file:example/prototype.cpp]]
+* Known Uses
+* Related Patterns
+  Prototype and Abstract Factory (99) are competing patterns in some ways, as we
+  discuss at the end of this chapter. They can also be used together, however.
+  An Abstract Factory might store a set of prototypes from which to clone and
+  return product objects.
+
+  Designs that make heavy use of the Composite (183) and Decorator (196)
+  patterns often can benefit from Prototype as well.
