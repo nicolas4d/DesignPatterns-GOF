@@ -9,7 +9,7 @@
 ** [[file:Creational Patterns ^.org][Creational Patterns ^]] 
 ** [[file:Abstract Factory.org][Abstract Factory]]
 ** [[file:Builder.org][Builder]]
-** Factory Method
+** [[file:Factory Method.org][Factory Method]]
 ** Prototype
 ** Singleton
 ** Discussion of Creational Patterns

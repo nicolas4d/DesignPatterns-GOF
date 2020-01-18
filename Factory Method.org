@@ -1,0 +1,242 @@
+* Intent
+  Define an interface for creating an object, but let subclasses decide which
+  class to instantiate. Factory Method lets a class defer instantiation to
+  subclasses.
+* Also Known As
+  Virtual Constructor
+* Motivation
+  [[file:img/factory%20method%20Motivation.png][factory method Motivation]]
+
+  We call CreateDocument a factory method because it's responsible for
+  "manufacturing" an object.
+* Applicability
+  Use the Factory Method pattern when
+  - a class can't anticipate the class of objects it must create.
+  - a class wants its subclasses to specify the objects it creates.
+  - classes delegate responsibility to one of several helper subclasses, and you
+    want to localize the knowledge of which helper subclass is the delegate.
+* Structure
+  [[file:img/factory%20method%20Structure.png][factory method Structure]]
+* Participants
+  - Product (Document)
+    - defines the interface of objects the factory method creates.
+  - ConcreteProduct (MyDocument)
+    - implements the Product interface.
+  - Creator (Application)
+    - declares the factory method, which returns an object of type Product. Creator
+      may also define a default implementation of the factory method that returns a
+      default ConcreteProduct object.
+    - may call the factory method to create a Product object.
+  - ConcreteCreator (MyApplication)
+    - overrides the factory method to return an instance of a ConcreteProduct.
+* Collaborations
+  Creator relies on its subclasses to define the factory method so that it
+  returns an instance of the appropriate ConcreteProduct.
+* Consequences
+  Factory methods eliminate the need to bind application-specific classes into
+  your code.
+
+  A potential disadvantage of factory methods is that clients might have to
+  subclass the Creator class just to create a particular ConcreteProduct object.
+
+  1. Provides hooks for subclasses. Creating objects inside a class with a
+     factory method is always more flexible than creating an object directly.
+     Factory Method gives subclasses a hook for providing an extended version of
+     an object.
+
+  2. Connects parallel class hierarchies. In the examples we've considered so
+     far, the factory method is only called by Creators. But this doesn't have
+     to be the case; clients can find factory methods useful, especially in the
+     case of parallel class hierarchies.
+
+     [[file:img/Consequences%20factory%20method.png][Consequences factory method]]
+
+     localizes knowledge of which classes belong together.
+* Implementation
+  Consider the following issues when applying the Factory Method pattern:
+** Two major varieties.
+   The two main variations of the Factory Method pattern are (1) the case when
+   the Creator class is an abstract class and does not provide an implementation
+   for the factory method it declares, and (2) the case when the Creator is a
+   concrete class and provides a default implementation for the factory method.
+   It's also possible to have an abstract class that defines a default
+   implementation, but this is less common.
+** Parameterized factory methods.
+   Another variation on the pattern lets the factory method create multiple
+   kinds of products. The factory method takes a parameter that identifies the
+   kind of object to create. All objects the factory method creates will share
+   the Product interface.
+
+   #+begin_src C++ 
+       class Creator {
+       public:
+         virtual Product* Create(ProductId);
+       };
+
+       Product* Creator::Create (ProductId id) {
+         if (id == MINE)
+           return new MyProduct;
+         if (id == YOURS) return new YourProduct;
+         // repeat for remaining products...
+         return 0;
+       }
+
+       Product* MyCreator::Create (ProductId id) {
+         if (id == YOURS) return new MyProduct;
+         if (id == MINE) return new YourProduct;
+         // N.B.: switched YOURS and MINE
+
+         if (id == THEIRS) return new TheirProduct;
+         return Creator::Create(id); // called if all others fail
+         //Notice that the last thing this operation does is call Create on the parent
+         //class.
+       }
+   #+end_src
+** Language-specific variants and issues.
+   Different languages lend themselves to other interesting variations and
+   caveats.
+
+   A Smalltalk version of the Document example can define a documentClass
+   method on Application. The documentClass method returns the proper Document
+   class for instantiating documents. The implementation of documentClass in
+   MyApplication returns the MyDocument class. Thus in class Application we
+   have
+
+   #+begin_src Smalltalk
+       clientMethod
+         document := self documentClass new.
+
+       documentClass
+         self subclassResponsibility
+
+       #  In class MyApplication we have
+
+       documentClass
+         ^ MyDocument
+   #+end_src
+
+   #+begin_src c++ 
+       // lazy initialization
+       class Creator {
+       public:
+         Product* GetProduct();
+       protected:
+         virtual Product* CreateProduct();
+       private:
+         Product* _product;
+       };
+       Product* Creator::GetProduct () {
+         if (_product == 0) {
+           _product = CreateProduct();
+         }
+         return _product;
+       }
+   #+end_src
+** Using templates to avoid subclassing.
+   #+begin_src c++ 
+        class Creator {
+        public:
+          virtual Product* CreateProduct() = 0;
+        };
+
+        template <class TheProduct>
+        class StandardCreator: public Creator {
+        public:
+          virtual Product* CreateProduct();
+        };
+
+        template <class TheProduct>
+        Product* StandardCreator<TheProduct>::CreateProduct () {
+          return new TheProduct;
+        }
+
+        class MyProduct : public Product {
+        public:
+          MyProduct();
+          // ...
+        };
+
+        StandardCreator<MyProduct> myCreator;
+   #+end_src
+** Naming conventions.
+   declares the abstract operation that defines the factory method as Class*
+   DoMakeClass().
+* Sample Code
+  #+begin_src c++ 
+    class MazeGame {
+    public:
+      Maze* CreateMaze();
+      // factory methods:
+
+      virtual Maze* MakeMaze() const
+      { return new Maze; }
+
+      virtual Room* MakeRoom(int n) const
+      { return new Room(n); }
+
+      virtual Wall* MakeWall() const
+      { return new Wall; }
+
+      virtual Door* MakeDoor(Room* r1, Room* r2) const
+      { return new Door(r1, r2); }
+    };
+
+    Maze* MazeGame::CreateMaze () {
+      Maze* aMaze = MakeMaze();
+
+      Room* r1 = MakeRoom(1);
+      Room* r2 = MakeRoom(2);
+      Door* theDoor = MakeDoor(r1, r2);
+
+      aMaze->AddRoom(r1);
+      aMaze->AddRoom(r2);
+
+      r1->SetSide(North, MakeWall());
+      r1->SetSide(East, theDoor);
+      r1->SetSide(South, MakeWall());
+      r1->SetSide(West, MakeWall());
+
+      r2->SetSide(North, MakeWall());
+      r2->SetSide(East, MakeWall());
+      r2->SetSide(South, MakeWall());
+      r2->SetSide(West, theDoor);
+
+      return aMaze;
+    }
+
+    class BombedMazeGame : public MazeGame {
+    public:
+      BombedMazeGame();
+
+      virtual Wall* MakeWall() const
+      { return new BombedWall; }
+
+      virtual Room* MakeRoom(int n) const
+      { return new RoomWithABomb(n); }
+    };
+
+    class EnchantedMazeGame : public MazeGame {
+    public:
+      EnchantedMazeGame();
+
+      virtual Room* MakeRoom(int n) const
+      { return new EnchantedRoom(n, CastSpell()); }
+
+      virtual Door* MakeDoor(Room* r1, Room* r2) const
+      { return new DoorNeedingSpell(r1, r2); }
+  
+    protected:
+      Spell* CastSpell() const;
+    };
+  #+end_src
+* Known Uses
+* Related Patterns
+  Abstract Factory is often implemented with factory methods. The Motivation
+  example in the Abstract Factory pattern illustrates Factory Method as well.
+
+  Factory methods are usually called within Template Methods. In the document
+  example above, NewDocument is a template method.
+
+  Prototypes don't require subclassing Creator. However, they often require an
+  Initialize operation on the Product class. Creator uses Initialize to
+  initialize the object. Factory Method doesn't require such an operation.
