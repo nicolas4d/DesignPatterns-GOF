@@ -1,0 +1,237 @@
+* Intent
+  Convert the interface of a class into another interface clients expect.
+  Adapter lets classes work together that couldn't otherwise because of
+  incompatible interfaces.
+* Also Known As
+  Wrapper
+* Motivation
+  Sometimes a toolkit class that's designed for reuse isn't reusable only because
+  its interface doesn't match the domain-specific interface an application requires.
+
+  we could define TextShape so that it adapts the TextView interface to Shape's.
+  We can do this in one of two ways:
+  1. by inheriting Shape's interface and TextView's implementation
+  2. by composing a TextView instance within a TextShape and implementing
+     TextShape in terms of TextView's interface. 
+
+
+  These two approaches correspond to the class and object versions of the
+  Adapter pattern. We call TextShape an *adapter*
+
+  [[file:img/Adapter%20motivation.png][Adapter motivation]]
+
+  Often the adapter is responsible for functionality the adapted class doesn't
+  provide.
+* Applicability
+  Use the Adapter pattern when :
+  - you want to use an existing class, and its interface does not match the one
+    you need.
+  - you want to create a reusable class that cooperates with unrelated or
+    unforeseen classes, that is, classes that don't necessarily have compatible
+    interfaces.
+  - (object adapter only) you need to use several existing subclasses, but it's
+    impractical to adapt their interface by subclassing every one. An object
+    adapter can adapt the interface of its parent class.
+* Structure
+  A class adapter uses multiple inheritance to adapt one interface to another:
+
+  [[file:img/class adapter.png][class adapter]]
+
+  An object adapter relies on object composition:
+
+  [[file:img/object adapter.png][object adapter]]
+* Participants
+  - Target (Shape)
+    - defines the domain-specific interface that Client uses.
+  - Client (DrawingEditor)
+    - collaborates with objects conforming to the Target interface.
+  - Adaptee (TextView)
+    - defines an existing interface that needs adapting.
+  - Adapter (TextShape)
+    - adapts the interface of Adaptee to the Target interface.
+* Collaborations
+  Clients call operations on an Adapter instance. In turn, the adapter calls
+  Adaptee operations that carry out the request.
+* Consequences
+  A class adapter :
+  - adapts Adaptee to Target by committing to a concrete Adapter class. As a
+    consequence, a class adapter won't work when we want to adapt a class and
+    all its subclasses.
+  - lets Adapter override some of Adaptee's behavior, since Adapter is a
+    subclass of Adaptee.
+  - introduces only one object, and no additional pointer indirection is needed
+    to get to the adaptee.
+
+
+  An object adapter :
+  - lets a single Adapter work with many Adaptees—that is, the Adaptee itself
+    and all of its subclasses (if any). The Adapter can also add functionality
+    to all Adaptees at once.
+  - makes it harder to override Adaptee behavior. It will require subclassing
+    Adaptee and making Adapter refer to the subclass rather than the Adaptee
+    itself.
+
+
+  Here are other issues to consider when using the Adapter pattern:
+  1. How much adapting does Adapter do?
+  2. Pluggable adapters. 
+
+     A class is more reusable when you minimize the assumptions other classes
+     must make to use it. By building interface adaptation into a class, you
+     eliminate the assumption that other classes see the same interface. Put
+     another way, interface adaptation lets us incorporate our class into
+     existing systems that might expect different interfaces to the class.
+     ObjectWorks\Smalltalk [Par90] uses the term *pluggable adapter* to describe
+     classes with built-in interface adaptation.
+
+  3. Using two-way adapters to provide transparency. 
+
+     A potential problem with adapters is that they aren't transparent to all
+     clients. An adapted object no longer conforms to the Adaptee interface, so
+     it can't be used as is wherever an Adaptee object can. Two-way adapters can
+     provide such transparency. Specifically, they're useful when two different
+     clients need to view an object differently.
+
+     [[file:img/adapter%20implementation.png][adapter implementation]]
+* Implementation
+  some issues to keep in mind:
+  1. Implementing class adapters in C++. In a C++ implementation of a class
+     adapter, Adapter would inherit publicly from Target and privately from
+     Adaptee. Thus Adapter would be a subtype of Target but not of Adaptee.
+  2. Pluggable adapters. 
+
+     The first step, is to find a "narrow" interface for Adaptee, that is, the
+     smallest subset of operations that lets us do the adaptation. A narrow
+     interface consisting of only a couple of operations is easier to adapt than
+     an interface with dozens of operations.
+
+     The narrow interface leads to three implementation approaches:
+     1. Using abstract operations. Define corresponding abstract operations
+        for the narrow Adaptee interface.
+
+        [[file:img/adapter%20implementation%20narrow%20a.png][adapter implementation narrow a]]
+
+     2. Using delegate objects.
+
+        [[file:img/adapter%20implementation%20narrow%20b.png.png][adapter implementation narrow b]]
+
+     3. Parameterized adapters.
+
+        The usual way to support pluggable adapters in Smalltalk is to
+        parameterize an adapter with one or more blocks.
+
+        #+begin_src smalltalk 
+        directoryDisplay :=
+            (TreeDisplay on: treeRoot)
+                getChildrenBlock:
+                    [:node | node getSubdirectories]
+                createGraphicNodeBlock:
+                    [:node | node createGraphicNode].
+        #+end_src
+* Sample Code
+  implementation of class :
+
+  #+begin_src c++ 
+    class Shape {
+    public:
+      Shape();
+      virtual void BoundingBox(
+                               Point& bottomLeft, Point& topRight
+                               ) const;
+      virtual Manipulator* CreateManipulator() const;
+    };
+
+    class TextView {
+    public:
+      TextView();
+      void GetOrigin(Coord& x, Coord& y) const;
+      void GetExtent(Coord& width, Coord& height) const;
+      virtual bool IsEmpty() const;
+    };
+
+    class TextShape : public Shape, private TextView {
+    public:
+      TextShape();
+
+      virtual void BoundingBox(
+                               Point& bottomLeft, Point& topRight
+                               ) const;
+      virtual bool IsEmpty() const;
+      virtual Manipulator* CreateManipulator() const;
+    };
+
+    void TextShape::BoundingBox (
+                                 Point& bottomLeft, Point& topRight
+                                 ) const {
+      Coord bottom, left, width, height;
+
+      GetOrigin(bottom, left);
+      GetExtent(width, height);
+
+      bottomLeft = Point(bottom, left);
+      topRight = Point(bottom + height, left + width);
+    }
+
+    bool TextShape::IsEmpty () const {
+      return TextView::IsEmpty();
+    }
+
+    Manipulator* TextShape::CreateManipulator () const {
+      return new TextManipulator(this);
+    }
+  #+end_src
+
+  The object adapter uses object composition to combine classes with different
+  interfaces.
+
+  #+begin_src c++ 
+    class TextShape : public Shape {
+    public:
+      TextShape(TextView*);
+
+      virtual void BoundingBox(
+                               Point& bottomLeft, Point& topRight
+                               ) const;
+      virtual bool IsEmpty() const;
+      virtual Manipulator* CreateManipulator() const;
+    private:
+      TextView* _text;
+    };
+
+    TextShape::TextShape (TextView* t) {
+      _text = t;
+    }
+
+    void TextShape::BoundingBox (
+                                 Point& bottomLeft, Point& topRight
+                                 ) const {
+      Coord bottom, left, width, height;
+      _text->GetOrigin(bottom, left);
+      _text->GetExtent(width, height);
+      bottomLeft = Point(bottom, left);
+      topRight = Point(bottom + height, left + width);
+    }
+
+    bool TextShape::IsEmpty () const {
+      return _text->IsEmpty();
+    }
+
+    Manipulator* TextShape::CreateManipulator () const {
+      return new TextManipulator(this);
+    }
+  #+end_src
+* Known Uses
+  [[file:img/adapter Known Uses.png][adapter Known Uses]]
+* Related Patterns 
+  Bridge has a structure similar to an object adapter, but Bridge has a
+  different intent: It is meant to separate an interface from its implementation
+  so that they can be varied easily and independently. An adapter is meant to
+  change the interface of an existing object.
+
+  Decorator enhances another object without changing its interface. A decorator
+  is thus more transparent to the application than an adapter is. As a
+  consequence, Decorator supports recursive composition, which isn't possible
+  with pure adapters.
+
+  Proxy defines a representative or surrogate for another object and does not
+  change its interface.

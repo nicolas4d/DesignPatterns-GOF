@@ -1,0 +1,5 @@
+There are two common ways to parameterize a system by the classes ofobjects it
+creates.
+- One way is to subclass the class that creates the objects; this corresponds to
+  using the Factory Method pattern.
+- The other way to parameterize a system relies more on object composition

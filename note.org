@@ -11,10 +11,11 @@
 ** [[file:Builder.org][Builder]]
 ** [[file:Factory Method.org][Factory Method]]
 ** [[file:Prototype.org][Prototype]]
-** Singleton
-** Discussion of Creational Patterns
+** [[file:Singleton.org][Singleton]]
+** [[file:Discussion of Creational Patterns.org][Discussion of Creational Patterns]]
 * 4 Structural Patterns
-** Adapter
+** [[file:Structural Patterns.org][Structural Patterns]]
+** [[file:Adapter.org][Adapter]]
 ** Bridge
 ** Composite
 ** Decorator

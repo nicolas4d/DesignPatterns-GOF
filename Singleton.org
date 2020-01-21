@@ -1,0 +1,156 @@
+* Intent
+  Ensure a class only has one instance, and provide a global point of access to
+  it.
+* Motivation
+  make the class itself responsible for keeping track of its sole instance. The
+  class can ensure that no other instance can be created (by intercepting
+  requests to create new objects), and it can provide a way to access the
+  instance. This is the Singleton pattern.
+* Applicability
+  Use the Singleton pattern when :
+  - there must be exactly one instance of a class, and it must be accessible to
+    clients from a well-known access point.
+  - when the sole instance should be extensible by subclassing, and clients
+    should be able to use an extended instance without modifying their code.
+* Structure
+  [[file:img/Singleton%20Structure.png][Singleton Structure]]
+* Participants
+  - Singleton
+    - defines an Instance operation that lets clients access its unique
+      instance. Instance is a class operation (that is, a class method in
+      Smalltalk and a static member function in C++).
+    - may be responsible for creating its own unique instance.
+* Collaborations
+  Clients access a Singleton instance solely through Singleton's Instance
+  operation.
+* Consequences
+  The Singleton pattern has several benefits:
+  1. Controlled access to sole instance.
+  2. Reduced name space. 
+  3. Permits refinement of operations and representation.
+  4. Permits a variable number of instances.
+  5. More flexible than class operations.
+* Implementation 
+  Here are implementation issues to consider when using the Singleton pattern:
+  1. Ensuring a unique instance.
+     
+     #+begin_src c++ 
+       class Singleton {
+       public:
+         static Singleton* Instance();
+
+       protected:
+         Singleton();
+
+       private:
+         static Singleton* _instance;
+       };
+
+       Singleton* Singleton::_instance = 0;
+
+       Singleton* Singleton::Instance () {
+         if (_instance == 0) {
+           _instance = new Singleton;
+         }
+  
+         return _instance;
+       }
+     #+end_src
+     
+     Instance uses lazy initialization; the value it returns isn't created and
+     stored until it's first accessed.
+
+     There's another thing to note about the C++ implementation. It isn't enough
+     to define the singleton as a global or static object and then *rely on
+     automatic initialization*. There are three reasons for this:
+     1. We can't guarantee that only one instance of a static object will ever
+        be declared.
+     2. We might not have enough information to instantiate every singleton at
+        static initialization time. A singleton might require values that are
+        computed later in the program's execution.
+     3. C++ doesn't define the order in which constructors for global objects
+        are called across translation units [ES90]. This means that no
+        dependencies can exist between singletons; if any do, then errors are
+        inevitable.
+
+  2. Subclassing the Singleton class.
+     A more flexible approach uses a *registry of singletons*. Instead of having
+     Instance define the set of possible Singleton classes, the Singleton classes
+     can register their singleton instance by name in a well-known registry.
+     #+begin_src c++ 
+       class Singleton {
+       public:
+         static void Register(const char* name, Singleton*);
+         static Singleton* Instance();
+
+       protected:
+         static Singleton* Lookup(const char* name);
+
+       private:
+         static Singleton* _instance;
+         static List<NameSingletonPair>* _registry;
+       };
+
+       Singleton* Singleton::Instance () {
+         if (_instance == 0) {
+           const char* singletonName = getenv("SINGLETON");
+           // user or environment supplies this at startup
+           _instance = Lookup(singletonName);
+           // Lookup returns 0 if there's no such singleton
+         }
+
+         return _instance;
+       }
+
+       MySingleton::MySingleton() {
+         // ...
+         Singleton::Register("MySingleton", this);
+       }
+
+       static MySingleton theSingleton;
+     #+end_src
+* Sample Code
+  #+begin_src c++ 
+    class MazeFactory {
+     public:
+     static MazeFactory* Instance();
+
+     // existing interface goes here
+     protected:
+     MazeFactory();
+
+     private:
+     static MazeFactory* _instance;
+    };
+
+    MazeFactory* MazeFactory::_instance = 0;
+
+    MazeFactory* MazeFactory::Instance () {
+      if (_instance == 0) {
+        _instance = new MazeFactory;
+      }
+
+      return _instance;
+    }
+
+    MazeFactory* MazeFactory::Instance () {
+      if (_instance == 0) {
+        const char* mazeStyle = getenv("MAZESTYLE");
+
+        if (strcmp(mazeStyle, "bombed") == 0) {
+          _instance = new BombedMazeFactory;
+        } else if (strcmp(mazeStyle, "enchanted") == 0) {
+          _instance = new EnchantedMazeFactory;
+          // ... other possible subclasses
+        } else {
+          // default
+          _instance = new MazeFactory;
+        }
+      }
+  
+      return _instance;
+    }
+  #+end_src
+* Related Patterns
+  Many patterns can be implemented using the Singleton pattern. See Abstract
+  Factory, Builder, and Prototype.
