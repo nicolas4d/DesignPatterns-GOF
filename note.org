@@ -16,7 +16,7 @@
 * 4 Structural Patterns
 ** [[file:Structural Patterns.org][Structural Patterns]]
 ** [[file:Adapter.org][Adapter]]
-** Bridge
+** [[file:Bridge.org][Bridge]]
 ** Composite
 ** Decorator
 ** Façade
