@@ -17,7 +17,7 @@
 ** [[file:Structural Patterns.org][Structural Patterns]]
 ** [[file:Adapter.org][Adapter]]
 ** [[file:Bridge.org][Bridge]]
-** Composite
+** [[file:Composite.org][Composite]]
 ** Decorator
 ** Façade
 ** Flyweight
