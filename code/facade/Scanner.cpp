@@ -3,27 +3,34 @@
 
 #include "Token.cpp"
 
+#include <iostream>
+
 using namespace std;
 
 class Scanner {
 public:
   Scanner(istream&);
+  Scanner();
 
   virtual Token& Scan();
 
 private:
-  istream& _inputStream;
+  istream& _inputStream(stringstream&(stringstream()));
 };
 
-Scanner::Scanner(istream& istream)
+Scanner::Scanner()
+{
+  cout << "Scanner::Scanner()" << "\n";
+}
+
+Scanner::Scanner(istream& i)
 {
   std::cout << "Scanner::Scanner(istream& istream)" << "\n";
-
-  _inputStream = istream;
 }
 
 Token& Scanner::Scan()
 {
   std::cout << "Token& Scanner::Scan()" << "\n";
 }
+
 #endif /* SCANNER_H */
