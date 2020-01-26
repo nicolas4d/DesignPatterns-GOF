@@ -262,11 +262,12 @@
 
   [[file:img/flyweight sample code Btree.png][flyweight sample code Btree]]
 
-  Interior nodes define ranges of glyph indices. BTree is updated in response to
-  font changes and whenever glyphs are added to or removed from the glyph structure.
-  For example, assuming we're at index 102 in the traversal, the following code
-  sets the font of each character in the word "expect" to that of the surrounding
-  text (that is, times12, an instance of Font for 12-point Times Roman):
+  *Interior nodes define ranges of glyph indices*. BTree is updated in response
+  to font changes and whenever glyphs are added to or removed from the glyph
+  structure. For example, assuming we're at index 102 in the traversal, the
+  following code sets the font of each character in the word "expect" to that of
+  the surrounding text (that is, times12, an instance of Font for 12-point Times
+  Roman):
   #+begin_src c++ 
   GlyphContext gc;
   Font* times12 = new Font("Times-Roman-12");
