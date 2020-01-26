@@ -11,7 +11,6 @@ int main(int argc, char *argv[])
   new Token();
   new Scanner();
 
-
   cout << "\n" << "main end"<< "\n" << "\n";
 
   return 0;
