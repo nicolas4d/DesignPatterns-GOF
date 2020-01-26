@@ -18,8 +18,8 @@
 ** [[file:Adapter.org][Adapter]]
 ** [[file:Bridge.org][Bridge]]
 ** [[file:Composite.org][Composite]]
-** Decorator
-** Façade
+** [[file:Decorator.org][Decorator]]
+** [[file:Façade.org][Façade]]
 ** Flyweight
 ** Proxy
 ** Discussion of Structural Patterns
