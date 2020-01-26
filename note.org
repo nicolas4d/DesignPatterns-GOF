@@ -20,7 +20,7 @@
 ** [[file:Composite.org][Composite]]
 ** [[file:Decorator.org][Decorator]]
 ** [[file:Façade.org][Façade]]
-** Flyweight
+** [[file:Flyweight.org][Flyweight]]
 ** Proxy
 ** Discussion of Structural Patterns
 * 5 Behavioral Patterns
