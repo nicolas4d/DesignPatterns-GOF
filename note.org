@@ -21,7 +21,7 @@
 ** [[file:Decorator.org][Decorator]]
 ** [[file:Façade.org][Façade]]
 ** [[file:Flyweight.org][Flyweight]]
-** Proxy
+** [[file:Proxy.org][Proxy]]
 ** Discussion of Structural Patterns
 * 5 Behavioral Patterns
 ** Chain of Responsibility
