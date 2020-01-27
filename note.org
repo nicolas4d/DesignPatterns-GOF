@@ -22,7 +22,7 @@
 ** [[file:Façade.org][Façade]]
 ** [[file:Flyweight.org][Flyweight]]
 ** [[file:Proxy.org][Proxy]]
-** Discussion of Structural Patterns
+** [[file:Discussion of Structural Patterns.org][Discussion of Structural Patterns]]
 * 5 Behavioral Patterns
 ** Chain of Responsibility
 ** Command
