@@ -25,7 +25,7 @@
 ** [[file:Discussion of Structural Patterns.org][Discussion of Structural Patterns]]
 * 5 Behavioral Patterns
 ** [[file:Behavioral Patterns.org][Behavioral Patterns]]
-** Chain of Responsibility
+** [[file:Chain of Responsibility.org][Chain of Responsibility]]
 ** Command
 ** Interpreter
 ** Iterator
