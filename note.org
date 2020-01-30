@@ -27,7 +27,7 @@
 ** [[file:Behavioral Patterns.org][Behavioral Patterns]]
 ** [[file:Chain of Responsibility.org][Chain of Responsibility]]
 ** [[file:Command.org][Command]]
-** Interpreter
+** [[file:Interpreter.org][Interpreter]]
 ** Iterator
 ** Mediator
 ** Memento
