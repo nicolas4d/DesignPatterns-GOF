@@ -28,7 +28,7 @@
 ** [[file:Chain of Responsibility.org][Chain of Responsibility]]
 ** [[file:Command.org][Command]]
 ** [[file:Interpreter.org][Interpreter]]
-** Iterator
+** [[file:Iterator.org][Iterator]]
 ** Mediator
 ** Memento
 ** Observer
@@ -48,10 +48,5 @@
 ** B.1 Class Diagram
 ** B.2 Object Diagram
 ** B.3 Interaction Diagram
-* C Foundation Classes
-** C.1 List
-** C.2 Iterator
-** C.3 ListIterator
-** C.4 Point
-** C.5 Rect
+* [[file:C Foundation Classes.org][C Foundation Classes]]
 * Bibliography
