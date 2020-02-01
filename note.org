@@ -29,7 +29,7 @@
 ** [[file:Command.org][Command]]
 ** [[file:Interpreter.org][Interpreter]]
 ** [[file:Iterator.org][Iterator]]
-** Mediator
+** [[file:Mediator.org][Mediator]]
 ** Memento
 ** Observer
 ** State
