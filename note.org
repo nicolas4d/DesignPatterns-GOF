@@ -30,7 +30,7 @@
 ** [[file:Interpreter.org][Interpreter]]
 ** [[file:Iterator.org][Iterator]]
 ** [[file:Mediator.org][Mediator]]
-** Memento
+** [[file:Memento.org][Memento]]
 ** Observer
 ** State
 ** Strategy
