@@ -37,7 +37,7 @@ public:
   //bool Includes(const Item&) const;
   void Append(const Item&);
   //void Prepend(const Item&);
-  //void Remove(const Item&);
+  void Remove(const Item&);
   //void RemoveLast();
   //void RemoveFirst();
   //avoid RemoveAll();
@@ -94,18 +94,10 @@ void List<Item>::Append(const Item& item)
   _list.push_back(item);
 }
 
-// template <class Item>
-// void List<Item>::test()
-// {
-//   typename list<Item>::iterator iter;
-//   iter = _list.begin();
-
-//   while(iter != _list.end())
-//     {
-//       cout << *iter << endl;
-//     }
-
-// }
-
+template <class Item>
+void List<Item>::Remove(const Item&)
+{
+  
+}
 
 #endif /* LIST_H */

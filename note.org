@@ -31,7 +31,7 @@
 ** [[file:Iterator.org][Iterator]]
 ** [[file:Mediator.org][Mediator]]
 ** [[file:Memento.org][Memento]]
-** Observer
+** [[file:Observer.org][Observer]]
 ** State
 ** Strategy
 ** Template Method
