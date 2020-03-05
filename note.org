@@ -32,7 +32,7 @@
 ** [[file:Mediator.org][Mediator]]
 ** [[file:Memento.org][Memento]]
 ** [[file:Observer.org][Observer]]
-** State
+** [[file:State.org][State]]
 ** Strategy
 ** Template Method
 ** Visitor
