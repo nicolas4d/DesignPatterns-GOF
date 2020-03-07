@@ -33,7 +33,7 @@
 ** [[file:Memento.org][Memento]]
 ** [[file:Observer.org][Observer]]
 ** [[file:State.org][State]]
-** Strategy
+** [[file:Strategy.org][Strategy]]
 ** Template Method
 ** Visitor
 ** Discussion of Behavioral Patterns
