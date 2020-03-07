@@ -34,7 +34,7 @@
 ** [[file:Observer.org][Observer]]
 ** [[file:State.org][State]]
 ** [[file:Strategy.org][Strategy]]
-** Template Method
+** [[file:Template Method.org][Template Method]]
 ** Visitor
 ** Discussion of Behavioral Patterns
 * 6 Conclusion
