@@ -36,7 +36,7 @@
 ** [[file:Strategy.org][Strategy]]
 ** [[file:Template Method.org][Template Method]]
 ** [[file:Visitor.org][Visitor]]
-** Discussion of Behavioral Patterns
+** [[file:note/Discussion of Behavioral Patterns.org][Discussion of Behavioral Patterns]]
 * 6 Conclusion
 ** 6.1 What to Expect from Design Patterns
 ** 6.2 A Brief History
