@@ -5,7 +5,7 @@
 * [[file:Guide to Readers.org][Guide to Readers]]
 * [[file:1 Introduction.org][1 Introduction]]
 * [[file:2 A Case Study: Designing a Document Editor.org][2 A Case Study: Designing a Document Editor]]
-* 3 Creational Patterns
+* [[file:note/3 Creational Patterns][3 Creational Patterns]]
 ** [[file:Creational Patterns ^.org][Creational Patterns ^]] 
 ** [[file:Abstract Factory.org][Abstract Factory]]
 ** [[file:Builder.org][Builder]]
@@ -13,7 +13,7 @@
 ** [[file:Prototype.org][Prototype]]
 ** [[file:Singleton.org][Singleton]]
 ** [[file:Discussion of Creational Patterns.org][Discussion of Creational Patterns]]
-* 4 Structural Patterns
+* [[file:note/4 Structural Patterns][4 Structural Patterns]]
 ** [[file:Structural Patterns.org][Structural Patterns]]
 ** [[file:Adapter.org][Adapter]]
 ** [[file:Bridge.org][Bridge]]
@@ -23,7 +23,7 @@
 ** [[file:Flyweight.org][Flyweight]]
 ** [[file:Proxy.org][Proxy]]
 ** [[file:Discussion of Structural Patterns.org][Discussion of Structural Patterns]]
-* 5 Behavioral Patterns
+* [[file:note/5 Behavioral Patterns][5 Behavioral Patterns]]
 ** [[file:Behavioral Patterns.org][Behavioral Patterns]]
 ** [[file:Chain of Responsibility.org][Chain of Responsibility]]
 ** [[file:Command.org][Command]]
@@ -37,16 +37,16 @@
 ** [[file:Template Method.org][Template Method]]
 ** [[file:Visitor.org][Visitor]]
 ** [[file:note/Discussion of Behavioral Patterns.org][Discussion of Behavioral Patterns]]
-* 6 Conclusion
-** 6.1 What to Expect from Design Patterns
-** 6.2 A Brief History
-** 6.3 The Pattern Community
-** 6.4 An Invitation
-** 6.5 A Parting Thought
-* A Glossary
-* B Guide to Notation
-** B.1 Class Diagram
-** B.2 Object Diagram
-** B.3 Interaction Diagram
+* [[file:note/6 Conclusion][6 Conclusion]]
+** [[file:note/6.1 What to Expect from Design Patterns][6.1 What to Expect from Design Patterns]]
+** [[file:note/6.2 A Brief History][6.2 A Brief History]]
+** [[file:note/6.3 The Pattern Community][6.3 The Pattern Community]]
+** [[file:note/6.4 An Invitation][6.4 An Invitation]]
+** [[file:note/6.5 A Parting Thought][6.5 A Parting Thought]]
+* [[file:note/A Glossary][A Glossary]]
+* [[file:note/B Guide to Notation][B Guide to Notation]]
+** [[file:note/B.1 Class Diagram][B.1 Class Diagram]]
+** [[file:note/B.2 Object Diagram][B.2 Object Diagram]]
+** [[file:note/B.3 Interaction Diagram][B.3 Interaction Diagram]]
 * [[file:C Foundation Classes.org][C Foundation Classes]]
-* Bibliography
+* [[file:note/Bibliography][Bibliography]]

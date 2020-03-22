@@ -1,0 +1,22 @@
+It's possible to argue that this book hasn't accomplished much. Afterall, it
+doesn't present any algorithms or programming techniques that haven't been used
+before. It doesn't give a rigorous method for designing systems, nor does it
+develop a new theory of design—it just documents existing designs. You could
+conclude that it makes a reasonable tutorial, perhaps, but it certainly can't
+offer much to an experienced object-oriented designer.
+
+We hope you think differently. Cataloging design patterns is important. It gives
+us standard names and definitions for the techniques we use. If we don't study
+design patterns in software, we won't be able to improve them, and it'll be
+harder to come up with new ones.
+
+This book is only a start. It contains some of the most common design patterns
+that expert object-oriented designers use, and yet people hear and learn about
+them solely by word of mouth or by studying existing systems. Early drafts of
+the book prompted other people to write down the design patterns they use, and
+it should prompt even more in its current form. We hope this will mark the start
+of a movement to document the expertise of software practitioners.
+
+This chapter discusses the impact we think design patterns will have, how they
+are related to other work in design, and how you can get involved in finding and
+cataloging patterns.
